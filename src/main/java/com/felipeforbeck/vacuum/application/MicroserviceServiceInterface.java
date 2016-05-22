@@ -15,7 +15,7 @@ public interface MicroserviceServiceInterface {
      * @param swaggerUrl        swagger documentation url
      * @return Microservice id
      */
-    String newMicroservice(String swaggerUrl);
+    String saveMicroservice(String swaggerUrl);
 
     /**
      * Requests a list of microservices with endpoints that contains the specified term in the path.
@@ -24,5 +24,14 @@ public interface MicroserviceServiceInterface {
      * @return A list of possible microservices with endpoints matching the term path
      */
     List<Microservice> findMicroservicesByPath(String termPath);
+
+
+    /**
+     * Requests a list of dependants microservices based on specific microservice id.
+     *
+     * @param microserviceId                microservice id
+     * @return A list of microservices which depends on specified microservice id.
+     */
+    List<Microservice> findDependants(String microserviceId);
 
 }

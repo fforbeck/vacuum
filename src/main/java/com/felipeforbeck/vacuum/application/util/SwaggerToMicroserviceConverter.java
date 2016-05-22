@@ -2,7 +2,6 @@ package com.felipeforbeck.vacuum.application.util;
 
 import com.felipeforbeck.vacuum.domain.model.Endpoint;
 import com.felipeforbeck.vacuum.domain.model.Microservice;
-import io.swagger.models.Operation;
 import io.swagger.models.Path;
 import io.swagger.models.Swagger;
 import org.springframework.context.annotation.Scope;
@@ -21,13 +20,7 @@ public class SwaggerToMicroserviceConverter {
         Microservice microservice = new Microservice(swagger.getHost());
 
         Map<String, Path> paths = swagger.getPaths();
-        paths.forEach((pathName, path) -> {
-            Endpoint endpoint = new Endpoint(swagger.getBasePath() + pathName);
-            for (Operation operation : path.getOperations()) {
-                endpoint.supports(operation.getOperationId());
-            }
-            microservice.has(endpoint);
-        });
+        paths.forEach((pathName, path) -> microservice.has(new Endpoint(swagger.getBasePath() + pathName)));
 
         return microservice;
     }

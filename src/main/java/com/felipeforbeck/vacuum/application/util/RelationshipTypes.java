@@ -3,7 +3,7 @@ package com.felipeforbeck.vacuum.application.util;
 import org.neo4j.graphdb.RelationshipType;
 
 public enum RelationshipTypes implements RelationshipType {
-    HAS,
+    EXPOSES,
     CALLS,
     GET,
     HEAD,

@@ -7,8 +7,10 @@ import java.util.List;
  */
 public interface MicroserviceRepository {
 
-    String newMicroservice(String url);
+    String saveMicroservice(String url);
 
     List<Microservice> findMicroservicesByPathTerm(String term);
+
+    List<Microservice> findDependants(String microserviceId);
 
 }

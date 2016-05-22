@@ -17,12 +17,17 @@ public class MicroserviceService implements MicroserviceServiceInterface {
     @Autowired
     private MicroserviceRepository repository;
 
-    public String newMicroservice(String swaggerUrl) {
-        return repository.newMicroservice(swaggerUrl);
+    public String saveMicroservice(String swaggerUrl) {
+        return repository.saveMicroservice(swaggerUrl);
     }
 
     public List<Microservice> findMicroservicesByPath(String path) {
         return repository.findMicroservicesByPathTerm(path);
+    }
+
+    @Override
+    public List<Microservice> findDependants(String microserviceId) {
+        return repository.findDependants(microserviceId);
     }
 
 }

@@ -48,7 +48,11 @@ public class SwaggerToMicroserviceConverterTest {
         Assert.assertEquals("petstore.swagger.io", microservice.getHost());
 
         microservice.getEndpoints()
-                .forEach(endpoint -> Assert.assertTrue(endpoint.getPath() + " not found",
+                .forEachRemaining(endpoint -> Assert.assertTrue(endpoint.getPath() + " not found",
                         expectedPaths.contains(endpoint.getPath())));
     }
+    //curl -XPOST localhost:8090/v1/microservices -H 'Content-Type: application/json' -d '{"swagger_url": "https://raw.githubusercontent.com/swagger-api/swagger-parser/master/modules/swagger-parser/src/test/resources/uber.json"}'
+
+    //curl -XPOST localhost:8090/v1/microservices -H 'Content-Type: application/json' -d '{"swagger_url": "http://petstore.swagger.io/v2/swagger.json"}'
+
 }
