@@ -10,19 +10,20 @@ and Vacuum will parse it and create the Service-Endpoint graph as you can see in
 ![Service-Endpoint-Graph](graph-microservice-dependencies.png)
 
 
-The microservice/service host property, captured from Swagger document, represents the main node labeled as `Service` in which
-all paths declared in the swagger spec, are extracted and created as nodes labeled as `Endpoint`.
-So, basically, the graph is composed by hosts and paths, where hosts represent the service name
-and paths the endpoints exposed on that service.
+The *green* node is the service host name, captured from Swagger document, it represents the main node and is labeled as `Service`.
+*Blue* nodes are the service paths, also captured from Swagger spec, the nodes labeled as `Endpoint` and have the propety `path`
+which descrives its path on that service. Basically, the graph is composed by host names and paths. 
 
-There is only one relationship between `Service` and `Endpoint` which is identified by the label `EXPOSES`.
+There is only one relationship between `Service` and `Endpoint` which is identified by the label `EXPOSES`. It represents all
+endpoints that are exposed for a given service swagger spec.
 
 Once you have created the Service-Endpoint graph you can adjust your microservices to send a request
-to Vacuum API with the details about the call that your service A is sending to any other service.
+to Vacuum API.
 
-After that, you can use Vacum API to obtain details about the dependancy of your services.
+The request needs to inform the details about the call that your service A is sending to your service B.
+After that, Vacuum will create relationships between both services considering the path and http method in use.
 
-The relatioship between services are created everytime the API receives a request event with these details:
+The relatioship between the Service rely on a request event with these details:
 - origin_host: The service A host name which is firing the call to service B
 - method: The HTTP method
 - target_host: The service B host name
@@ -58,8 +59,10 @@ POST <host>:8090/v1/requests -H 'Content-Type: application/json' -d '{"origin_ho
 Under `scripts` folder you will find the script `fetch_db.sh`, it will provide some sample data to populate Neo4J.
 It creates two graphs Service-Endpoint and add relatioships (`GET`,`POST`,`DELETE`,`CALL`) for `Service` nodes which represents call events between them.
 
+After you have executed the script you can open the Neo4J dashboard http://localhost:7474/browser/
+and execute this Cypher query to see all the entire graph: `MATCH p=()-[r:EXPOSES]->() RETURN p` 
 
-### Basic Queries
+### Basic Queries via Vacuum API
 ---
 
 
