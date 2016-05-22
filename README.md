@@ -70,11 +70,6 @@ and execute this Cypher query to see all the entire graph: `MATCH p=()-[r:EXPOSE
 GET <host>:8090/v1/microservices?path_term=user -H 'Content-Type: application/json'
 ```
 
-#### Get all microservice which contains term `user` in ther endpoints:
-```
-GET <host>:8090/v1/microservices?path_term=user -H 'Content-Type: application/json'
-```
-
 #### Get all services which rely on service id
 ```
 GET <host>:8090/v1/microservices/b36e8649-e82e-4795-8ef6-c2d8eb3e6620/dependants -H 'Content-Type: application/json'
