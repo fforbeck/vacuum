@@ -62,5 +62,16 @@ public class MicroserviceController {
         }
     }
 
+    //TODO count total calls from host A to host B based on http_method(optional: default = any type of call)
+
+    //TODO find all endpoints called from A to B sort by DESC|ASC param
+
+    //TODO find all service names in use by service X (id)
+
+    //TODO find all calls using http method X from host A to host B
+
+    //TODO get last call timestamp based on http_method from service A to Service B
+
+
 }
 
