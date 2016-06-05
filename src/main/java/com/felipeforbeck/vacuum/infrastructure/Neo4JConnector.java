@@ -3,6 +3,7 @@ package com.felipeforbeck.vacuum.infrastructure;
 import org.apache.log4j.Logger;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.driver.v1.Session;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +22,14 @@ public class Neo4JConnector {
     @PostConstruct
     public void init() {
         this.driver = GraphDatabase.driver("bolt://localhost");
+        ping();
         LOG.info("Graph DB started");
+    }
+
+    private void ping() {
+        Session session = this.driver.session();
+        session.isOpen();
+        session.close();
     }
 
     @PreDestroy
